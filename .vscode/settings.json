@@ -1,0 +1,11 @@
+{
+    "git.ignoreLimitWarning": true,
+
+    "files.exclude": {
+        // include the defaults from VS Code
+        "**/.git": true,
+        "**/.DS_Store": true,
+
+        "**/__pycache__": true
+    }
+}
