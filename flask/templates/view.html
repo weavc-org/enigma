@@ -1,0 +1,27 @@
+<!doctype html>
+<title>Hello from Flask</title>
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% else %}
+  <h1>Hello, World!</h1>
+{% endif %}
+
+<body>
+  {% if form %}
+  <form method="POST">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="input-group input-group-sm">
+            {{ form.comment(title=form.comment.description, class_='form-control', tabindex='1') | safe }}
+            {{ form.other(title=form.other.description, class_='form-control', tabindex='2') | safe }}
+            <div class="input-group-btn">
+              {{ form.submit(class="btn btn-info", formaction='/api/submit') }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  {% endif %}
+</body>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from enigma.enigma import enigma as Enigma
-from enigma.config import config as Config
+from enigma import enigma as Enigma
+from config import config as Config
 
 if __name__ == "__main__":
     config = Config()

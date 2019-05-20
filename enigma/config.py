@@ -1,5 +1,5 @@
 import sys
-from enigma.rotor import rotor as Rotor
+from rotor import rotor as Rotor
 
 class config:
 
