@@ -6,6 +6,5 @@ from wtforms.validators import (DataRequired, Email,
     EqualTo, Length, Optional, Regexp, StopValidation, ValidationError)
 
 class Form(FlaskForm):
-    comment = StringField('Make a comment', [DataRequired(message='Comment must not be empty.')])
-    other = StringField('Make a other', [DataRequired(message='Other must not be empty.')])
+    encrypt = StringField('Encrypt: ', [DataRequired(message='Required')])
     submit = SubmitField('Submit')

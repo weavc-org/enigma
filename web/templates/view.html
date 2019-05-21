@@ -13,13 +13,15 @@
       <div class="col-md-6">
         <div class="form-group">
           <div class="input-group input-group-sm">
-            {{ form.comment(title=form.comment.description, class_='form-control', tabindex='1') | safe }}
-            {{ form.other(title=form.other.description, class_='form-control', tabindex='2') | safe }}
+            {{ form.encrypt(title=form.encrypt.description, class_='form-control', tabindex='1') | safe }}
             <div class="input-group-btn">
-              {{ form.submit(class="btn btn-info", formaction='/api/submit') }}
+              {{ form.submit(class="btn btn-info", formaction='/') }}
             </div>
           </div>
         </div>
+        {% if value %}
+          {{ value }}
+        {% endif %}
       </div>
     </div>
   </form>

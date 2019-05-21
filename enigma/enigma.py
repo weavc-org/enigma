@@ -1,5 +1,5 @@
 import sys
-from config import config
+from enigma.config import config
 
 class enigma:
 
