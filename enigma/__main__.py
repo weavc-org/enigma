@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-from enigma import enigma as Enigma
-from config import config as Config
+from machine.rotors import rotors
+from machine.enigma import enigma
+from machine.settings import settings
+from app import new_app
 
 if __name__ == "__main__":
-    config = Config()
-    en = Enigma(config)
-    print(en.encrypt('helloworld'))
-    
+    server = new_app()
+    server.run(host='0.0.0.0', port=5500)

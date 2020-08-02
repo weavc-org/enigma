@@ -2,9 +2,9 @@
 #!/usr/bin/env python3 
 
 import flask
-from web.view import view_bp
+from app.view import view_bp
 
-def start():
+def new_app():
 
     app = flask.Flask(__name__)
     app.register_blueprint(view_bp)

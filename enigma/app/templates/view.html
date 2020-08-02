@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link type="text/plain" rel="stylesheet" href="https://raw.githubusercontent.com/ChrisWeaver1/chrisweaver1.github.io/master/assets/css/main.css">
+  </head>
+  <body>
+    {% if form %}
+    <form method="POST" class="col-12">
+      <div class="form-group">
+        <label for="encrypt">Encrypt</label>
+        {{ form.data(id='encrypt', placeholder='text to encrpyt', class_='form-control', tabindex='1') | safe }}
+      </div>
+
+      <div class="form-row">
+        <label class="col-12">Left Rotor</label>
+        <div class="col">
+          {{ form.left_rotor(id='leftrotor', class_='form-control', tabindex='2') | safe }}
+        </div>
+        <div class="col">
+          {{ form.left_rotor_setting(id='leftrotorsetting', class_='form-control', tabindex='2') | safe }}
+        </div>
+        <div class="col">
+          {{ form.left_ring_setting(id='leftringsettings', class_='form-control', tabindex='2') | safe }}
+        </div>
+      </div>
+    
+      <div class="form-row">
+        <label class="col-12">Middle Rotor</label>
+        <div class="col">
+          {{ form.middle_rotor(id='middlerotor', class_='form-control', tabindex='2') | safe }}
+        </div>
+        <div class="col">
+          {{ form.middle_rotor_setting(id='middlerotorsetting', class_='form-control', tabindex='2') | safe }}
+        </div>
+        <div class="col">
+          {{ form.middle_ring_setting(id='middleringsettings', class_='form-control', tabindex='2') | safe }}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="col-12">Right Rotor</label>
+        <div class="col">
+          Rotor Type
+          {{ form.right_rotor(id='rightrotor', class_='form-control', tabindex='2') | safe }}
+        </div>
+        <div class="col">
+          Starts from
+          {{ form.right_rotor_setting(id='rightrotorsetting', class_='form-control', tabindex='2') | safe }}
+        </div>
+        <div class="col">
+          Ring Alignment
+          {{ form.right_ring_setting(id='rightringsettings', class_='form-control', tabindex='2') | safe }}
+        </div>
+      </div>
+
+      <div class="form-group my-3">
+        {{ form.submit(class="btn btn-info btn-block", formaction='/') }}
+      </div>
+
+    </form>
+    {% endif %}
+    {% if value %}
+      {{ value }}
+    {% endif %}
+  </body>
+</html>

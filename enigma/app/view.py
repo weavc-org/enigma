@@ -1,7 +1,6 @@
 import flask
-from web.forms import Form
-from enigma.config import config
-from enigma.enigma import enigma
+from app.forms import Form
+from machine import settings, enigma
 
 view_bp = flask.Blueprint('views', __name__)
 
@@ -13,9 +12,10 @@ def view():
 
     if (flask.request.form):
         f = Form(flask.request.form)
-        _config = config()
-        en = enigma(_config)
-        value = en.encrypt(f.encrypt.data)
+        s = settings.settings()
+        s.set_values(f.left_rotor.data, f.middle_rotor.data, f.right_rotor.data, "C", "xy,sd","a","a","a","a","a","a")
+        en = enigma.enigma(s)
+        value = en.encrypt(f.data.data)
     else: 
         f = Form()
 
