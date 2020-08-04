@@ -1,4 +1,5 @@
-from .settings import settings
+from m3.settings import settings
+from common import character_arrays
 import copy
 
 class enigma:
@@ -14,7 +15,6 @@ class enigma:
 
         # setup class variables
         self.cipher = []
-        self.alphabet=list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
         self.static_rotor=0
         self.tmp_store=0
         self.offset=0
@@ -23,67 +23,65 @@ class enigma:
 
     def encrypt(self, plaintext):
 
+        # check settings are valid
         t, errs = self.settings.is_valid()
         if t == False:
             return None, 'settings are not valid'
         
         self.plaintext = list(plaintext.upper())
 
-        #Setup the ring settings with the fake rotors
-        #Using fake rotors for this not to upset the turnover point of actual rotor values
+        # Setup the ring settings with the fake rotors
+        # Using fake rotors for this not to upset the turnover point of actual rotor values
         for i in range(0, len(self.fake_rotor_settings)):
             self.fake_rotors[i]=(self.fake_rotor_settings[i]-self.fake_ring_settings[i])%26
        
-        for i in range(0,len(self.plaintext)):
+        for i in range(0, len(self.plaintext)):
+            
+            # character pressed
+            c = self.plaintext[i]
 
-            if self.plaintext[i] == " ":
-                self.cipher.append(" ")
+            # ignore special characters
+            if character_arrays.index(c) == -1:
+                self.cipher.append(c)
                 continue
 
-            #Update rotors
-            self.rotorUpdates()
+            # handle rotor updates for this round
+            self.update_rotors()
 
-            #Character -> plugboard
-            self.plaintext[i]=self.plugboardCharacter(self.plaintext[i])
+            # pass character through plugboard
+            c = self.plugboard_pass(c)
 
-            #Plugboard Character -> static rotor
-            self.static_rotor = self.getAlphabetIndexNumber(self.plaintext[i], self.alphabet)
+            # set plugboard chacter in the static rotor
+            self.static_rotor = character_arrays.index(c)
 
-            #Static Character -> tmp_store
+            # store current value in temporary variable
             self.tmp_store = self.static_rotor
 
-            #Character -> Rotors
+            # put character through the rotors (right to left)
             self.tmp_store = self.rotor(0, False)
             self.tmp_store = self.rotor(1, False)
             self.tmp_store = self.rotor(2, False)
 
-            #Rotors -> Reflector
+            # character hits reflector
             self.tmp_store = self.reflect()
 
-            #Reflector -> Rotors
+            # passes back through rotors in opposite direction (left to right)
             self.tmp_store = self.rotor(2, True)
             self.tmp_store = self.rotor(1, True)
             self.tmp_store = self.rotor(0, True)
 
-            #Rotors -> Static Rotor
+            # back into the static rotor
             self.tmp_store = self.rotor(3, True)
         
-            #Static Rotor -> Plugboard
-            c=self.plugboardCharacter(self.alphabet[self.tmp_store])
+            # back into the plugboard
+            c = self.plugboard_pass(character_arrays.alphabet[self.tmp_store])
 
-            #Plugboard -> Output
+            # displayed on output light
             self.cipher.append(c)
             
-        return ''.join(self.cipher), None 
-
+        return ''.join(self.cipher), None
     
-    def getAlphabetIndexNumber(self, letter, a):
-        #Gets index value for a letter using a, where a is any form of alphabet i.e. Rotor outputs
-        for i in range(0, len(a)):
-                if a[i]==letter:
-                    return i
-    
-    def rotorUpdates(self):
+    def update_rotors(self):
 
         #Add one to right rotor on keypress
         self.fake_rotor_settings[0]+=1
@@ -116,7 +114,7 @@ class enigma:
         elif rotorNumber == 2:
             self.tmp_rotor=self.settings.left_rotor.value
         elif rotorNumber == 3:
-            self.tmp_rotor=self.alphabet
+            self.tmp_rotor=character_arrays.alphabet
 
         #Work out the offset between rotors, add it to tmp_store
         self.offset = self.fake_rotors[rotorNumber]-self.tmp_store_last
@@ -125,19 +123,19 @@ class enigma:
         
         if returning == True:
             #Return journey, in on the jumbled side, out on alphabet.
-            return self.getAlphabetIndexNumber(self.alphabet[self.tmp_store], self.tmp_rotor)
+            return character_arrays.index(character_arrays.alphabet[self.tmp_store], self.tmp_rotor)
         else:
             #Initial journey, in on alphabet, out on the jumbled side.
-            return self.getAlphabetIndexNumber(self.tmp_rotor[self.tmp_store], self.alphabet)
+            return character_arrays.index(self.tmp_rotor[self.tmp_store])
 
     def reflect(self):
         #Left rotor output -> Reflector
         self.offset=0-self.tmp_store_last
         self.tmp_store_last=0
         self.tmp_store=(self.tmp_store+self.offset)%26
-        return self.getAlphabetIndexNumber(self.settings.reflector.value[self.tmp_store], self.alphabet)
+        return character_arrays.index(self.settings.reflector.value[self.tmp_store])
 
-    def plugboardCharacter(self, c):
+    def plugboard_pass(self, c):
         #Checks for character in plugboard settings
         for pair in self.settings.plugboard:
             if c in pair:

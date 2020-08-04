@@ -56,22 +56,11 @@ def api_m3():
         return flask.jsonify(status=400, errors=["no input provided"]), 400
 
     s = settings.settings()
-    t, err = s.set_values(\
-        content.get("left_rotor"), \
-        content.get("middle_rotor"), \
-        content.get("right_rotor"), \
-        content.get("reflector"), \
-        content.get("plugboard"), \
-        content.get("left_ring_setting"), \
-        content.get("middle_ring_setting"), \
-        content.get("right_ring_setting"), \
-        content.get("left_rotor_setting"), \
-        content.get("middle_rotor_setting"), \
-        content.get("right_rotor_setting"))
+    t, err = s.set_values(**content)
     
     if t == False:
         return flask.jsonify(status=400, errors=err), 400
 
     value, err = enigma.enigma(s).encrypt(data)
 
-    return flask.jsonify(status=200, payload=value)
+    return flask.jsonify(status=200, payload=value, settings=s.to_json())

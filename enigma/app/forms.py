@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from m3.rotors import rotors, reflectors
+from m3.data import rotors, reflectors
 from m3.settings import settings
 import wtforms
 
@@ -34,7 +34,7 @@ class m3_form(FlaskForm):
 
     def to_data(self):
         s = settings()
-        t, err = s.set_values(self.left_rotor.data, self.middle_rotor.data, self.right_rotor.data, \
+        t, err = s.set_all_values(self.left_rotor.data, self.middle_rotor.data, self.right_rotor.data, \
             self.reflector.data, self.plugboard.data, self.left_ring_setting.data, self.middle_ring_setting.data, \
             self.right_ring_setting.data, self.left_rotor_setting.data, self.middle_rotor_setting.data, \
             self.right_rotor_setting.data)

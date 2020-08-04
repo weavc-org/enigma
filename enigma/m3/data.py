@@ -15,13 +15,13 @@ class reflectors:
         
         return None
 
-class rotor(reflector):
+class rotor:
     def __init__(self, name, turnover, value):
         self.name = name
         self.turnover = turnover
         self.value = value
 
-class rotors(reflectors):
+class rotors:
     I = rotor('I', [17], list('EKMFLGDQVZNTOWYHXUSPAIBRCJ'))
     II = rotor('II', [5], list('AJDKSIRUXBLHWTMCQGZNPYFVOE'))
     III = rotor('III', [22], list('BDFHJLCPRTXVZNYEIWGAKMUSQO'))
@@ -31,3 +31,10 @@ class rotors(reflectors):
     VII = rotor('VII', [26,13], list('NZJHGRCXMYSWBOUFAIVLPEKQDT'))
     VIII = rotor('VIII', [26,13], list('FKQHTLXOCBJSPDZRAMEWNIUYGV'))
     all = [I, II, III, IV, V, VI, VII, VIII]
+
+    def find(self, name: str):
+        for l in self.all:
+            if l.name == name.upper():
+                return l
+        
+        return None
