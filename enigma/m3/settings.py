@@ -67,28 +67,41 @@ class settings:
         # takes string inputs and sets & checks values
 
         # set rotors and reflectors
-        self.left_rotor = rotors().find(left_rotor) 
-        self.middle_rotor = rotors().find(middle_rotor)
-        self.right_rotor = rotors().find(right_rotor)
-        self.reflector = reflectors().find(reflector)
+        if left_rotor is not None:
+            self.left_rotor = rotors().find(left_rotor) 
+        if middle_rotor is not None:
+            self.middle_rotor = rotors().find(middle_rotor)
+        if right_rotor is not None:
+            self.right_rotor = rotors().find(right_rotor)
+        if reflector is not None:
+            self.reflector = reflectors().find(reflector)
 
         #set plugboard
-        plugboard = plugboard.replace(" ", "")
-        plugboard = plugboard.upper()
-        if plugboard == "":
-            self.plugboard = []
-        else:
-            self.plugboard = plugboard.split(",")
-        
+        if plugboard is not None:
+            plugboard = plugboard.replace(" ", "")
+            plugboard = plugboard.upper()
+            if plugboard == "":
+                self.plugboard = []
+            else:
+                self.plugboard = plugboard.split(",")
+            
         # ring settings
-        self.ring_settings[0] = self.alphabet_index(right_ring_setting)
-        self.ring_settings[1] = self.alphabet_index(middle_ring_setting)
-        self.ring_settings[2] = self.alphabet_index(left_ring_setting)
+        if right_ring_setting is not None:
+            self.ring_settings[0] = self.alphabet_index(right_ring_setting)
+        if middle_ring_setting is not None:
+            self.ring_settings[1] = self.alphabet_index(middle_ring_setting)
+        if left_ring_setting is not None:
+            self.ring_settings[2] = self.alphabet_index(left_ring_setting)
 
         # rotor settings
-        self.rotor_settings[0] = self.alphabet_index(right_rotor_setting)
-        self.rotor_settings[1] = self.alphabet_index(middle_rotor_setting)
-        self.rotor_settings[2] = self.alphabet_index(left_rotor_setting)
+        if right_rotor_setting is not None:
+            self.rotor_settings[0] = self.alphabet_index(right_rotor_setting)
+        if middle_rotor_setting is not None:
+            self.rotor_settings[1] = self.alphabet_index(middle_rotor_setting)
+        if left_rotor_setting is not None:
+            self.rotor_settings[2] = self.alphabet_index(left_rotor_setting)
+            
+        print(self)
 
         return self.is_valid()
 

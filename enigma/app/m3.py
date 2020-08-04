@@ -4,6 +4,10 @@ from m3 import settings, enigma
 
 m3_bp = flask.Blueprint('m3', __name__)
 
+@m3_bp.route('/', methods=['GET'])
+def redirect():
+    return flask.redirect(flask.url_for('m3.view_m3'))
+
 @m3_bp.route('/m3', methods=['POST', 'GET'])
 def view_m3():
 
@@ -45,7 +49,29 @@ def embed_m3():
 def api_m3():
     content = flask.request.get_json(silent=True)
     if content == None:
-        return flask.abort(400)
+        return flask.jsonify(status= 400, errors=["no body supplied"]), 400
         
-    print(content.get("hello"))
-    return flask.jsonify({"hello": "world"})
+    data = content.get("input")
+    if data == None:
+        return flask.jsonify(status=400, errors=["no input provided"]), 400
+
+    s = settings.settings()
+    t, err = s.set_values(\
+        content.get("left_rotor"), \
+        content.get("middle_rotor"), \
+        content.get("right_rotor"), \
+        content.get("reflector"), \
+        content.get("plugboard"), \
+        content.get("left_ring_setting"), \
+        content.get("middle_ring_setting"), \
+        content.get("right_ring_setting"), \
+        content.get("left_rotor_setting"), \
+        content.get("middle_rotor_setting"), \
+        content.get("right_rotor_setting"))
+    
+    if t == False:
+        return flask.jsonify(status=400, errors=err), 400
+
+    value, err = enigma.enigma(s).encrypt(data)
+
+    return flask.jsonify(status=200, payload=value)
