@@ -1,0 +1,101 @@
+{% if form %}
+<form method="POST" class="col-12 text-light">
+    <div class="row mb-3">
+
+        <div class="col">
+            <div class="card main-bg-dark">
+                <div class="card-header main-bg-darker">
+                    <label class="w-100 font-weight-bold">Slow Rotor (Left)</label>
+                </div>
+                <div class="card-body">
+                    <label for="leftrotor" class="w-100">Type</label>
+                    {{ form.left_rotor(id='leftrotor', class_='form-control mb-1', tabindex='2') | safe }}
+                    <label for="leftrotorsetting" class="w-100">Starts from</label>
+                    {{ form.left_rotor_setting(id='leftrotorsetting', class_='form-control mb-1', tabindex='2') | safe }}
+                    <label for="leftringsettings" class="w-100">Alignment</label>
+                    {{ form.left_ring_setting(id='leftringsettings', class_='form-control mb-1', tabindex='2') | safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card main-bg-dark">
+                <div class="card-header main-bg-darker">
+                    <label class="w-100 font-weight-bold">Middle Rotor (Centre)</label>
+                </div>
+                <div class="card-body">
+                    <label for="middlerotor" class="w-100">Type</label>
+                    {{ form.middle_rotor(id='middlerotor', class_='form-control mb-1', tabindex='2') | safe }}
+                    <label for="middlerotorsetting" class="w-100">Starts from</label>
+                    {{ form.middle_rotor_setting(id='middlerotorsetting', class_='form-control mb-1', tabindex='2') | safe }}
+                    <label for="middleringsettings" class="w-100">Alignment</label>
+                    {{ form.middle_ring_setting(id='middleringsettings', class_='form-control mb-1', tabindex='2') | safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card main-bg-dark">
+                <div class="card-header main-bg-darker">
+                    <label class="w-100 font-weight-bold">Fast Rotor (Right)</label>
+                </div>
+                <div class="card-body">
+                    <label for="rightrotor" class="w-100">Type</label>
+                    {{ form.right_rotor(id='rightrotor', class_='form-control mb-1', tabindex='2') | safe }}
+                    <label for="rightrotorsetting" class="w-100">Starts from</label>
+                    {{ form.right_rotor_setting(id='rightrotorsetting', class_='form-control mb-1', tabindex='2') | safe }}
+                    <label for="rightringsettings" class="w-100">Alignment</label>
+                    {{ form.right_ring_setting(id='rightringsettings', class_='form-control mb-1', tabindex='2') | safe }}
+                </div>
+            </div>
+        </div>
+
+    </div> 
+
+    <div class="row mb-3">
+
+        <div class="col-12">
+            <div class="card main-bg-dark">
+                <div class="card-header main-bg-darker">
+                    <label class="w-100 font-weight-bold">Additional Settings</label>
+                </div>
+                <div class="card-body row">
+                    <div class="col">
+                        <label for="reflector" class="w-100">Reflector</label>
+                        {{ form.reflector(id='reflector', class_='form-control', tabindex='1') | safe }}
+                    </div>
+                    <div class="col">
+                        <label for="plugboard" class="w-100">Plugboard</label>
+                        {{ form.plugboard(id='plugboard', placeholder='az, xy, mc, et...', class_='form-control', tabindex='1') | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mb-3">
+
+        <div class="col-12">
+            <div class="card main-bg-dark">
+                <div class="card-header main-bg-darker">
+                    <label class="w-100 font-weight-bold">Input / Output</label>
+                </div>
+                <div class="card-body row">
+                    <div class="col">
+                        {{ form.data(id='encrypt', placeholder='input', class_='form-control', tabindex='1') | safe }}
+                    </div>
+                    <div class="col">
+                        <textarea class="form-control" id="output" name="output" placeholder="output" disabled tabindex="1">{% if value %}{{ value }}{% endif %}</textarea>
+                    </div>
+
+                    <div class="form-group col-12 mt-3">
+                        {{ form.submit(class="btn btn-info btn-block", formaction='') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+{% endif %}

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from machine.rotors import rotors
-from machine.enigma import enigma
-from machine.settings import settings
+from m3.rotors import rotors
+from m3.enigma import enigma
+from m3.settings import settings
 from app import new_app
 
 if __name__ == "__main__":

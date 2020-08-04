@@ -1,0 +1,90 @@
+body {
+    font-family: Tahoma, Geneva, sans-serif !important;
+    background-color: #343a40;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+.main-bg-dark {
+    background-color: #343a40;
+    color: #efede6;
+}
+
+.main-bg-darker {
+    background-color: #24282c;
+    color: #efede6;
+}
+
+
+.main-bg-light {
+    background-color: #EFEDE6;
+    color: #343a40;
+}
+
+.highlight {
+    color: #7caec5de !important;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  background-image: url("/assets/images/bg-2-1080.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.footer {
+    bottom: 0;
+}
+
+.main-text-light {
+    color: #EFEDE6 !important;
+}
+
+.main-text-dark {
+    color: #0f1d2c !important;
+}
+
+.main-card {
+    border: 0px !important;
+    border-left: 4px solid #b8b6af !important;
+    background-color: transparent !important;
+    border-radius: 0;
+}
+
+.header-text {
+    font-weight: bolder;
+    text-shadow: 1px 1px #e83e73;
+}
+
+.badge-secondary {
+    background-color: #e83e8c !important;
+}
+
+.btn {
+    border-radius: 0 !important;
+}
+
+.form-control {
+    border-radius: 0 !important;
+    background-color: #24282c;
+    color: white;
+}
+
+.form-control:active {
+    background-color: #24282c;
+}
+
+.form-control:disabled {
+    background-color: #343a40;
+}
+
+.form-control:focus {
+    background-color: #24282c;
+    color: white;
+}
+

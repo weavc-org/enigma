@@ -23,8 +23,9 @@ class enigma:
 
     def encrypt(self, plaintext):
 
-        if not self.settings.is_valid():
-            return 'settings are not valid', None
+        t, errs = self.settings.is_valid()
+        if t == False:
+            return None, 'settings are not valid'
         
         self.plaintext = list(plaintext.upper())
 
@@ -73,7 +74,7 @@ class enigma:
             #Plugboard -> Output
             self.cipher.append(c)
             
-        return None, ''.join(self.cipher)
+        return ''.join(self.cipher), None 
 
     
     def getAlphabetIndexNumber(self, letter, a):

@@ -3,17 +3,13 @@ from .rotors import rotors, reflectors
 class settings:
 
     def __init__(self):
-        # initialize rotors and reflects classes
-        self.rotors = rotors()
-        self.reflectors = reflectors()
-
         self.alphabet=list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
         # set defaults
-        self.left_rotor = self.rotors.I
-        self.middle_rotor = self.rotors.II
-        self.right_rotor = self.rotors.III
-        self.reflector = self.reflectors.B
+        self.left_rotor = rotors.I
+        self.middle_rotor = rotors.II
+        self.right_rotor = rotors.III
+        self.reflector = reflectors.B
         self.plugboard = []
         self.ring_settings = [0,0,0]
         self.rotor_settings = [0,0,0]
@@ -51,6 +47,7 @@ class settings:
         return True, []
 
     def is_plugboard_valid(self):
+
         for ele in self.plugboard:
             if len(ele) != 2:
                 return "invalid character sets in plugboard"
@@ -70,16 +67,18 @@ class settings:
         # takes string inputs and sets & checks values
 
         # set rotors and reflectors
-        self.left_rotor = self.rotors.find(left_rotor) 
-        self.middle_rotor = self.rotors.find(middle_rotor)
-        self.right_rotor = self.rotors.find(right_rotor)
-        self.reflector = self.reflectors.find(reflector)
+        self.left_rotor = rotors().find(left_rotor) 
+        self.middle_rotor = rotors().find(middle_rotor)
+        self.right_rotor = rotors().find(right_rotor)
+        self.reflector = reflectors().find(reflector)
 
         #set plugboard
-        # remove whitespace
-        plugboard= plugboard.replace(" ", "")
-        # split
-        self.plugboard= plugboard.split(",")
+        plugboard = plugboard.replace(" ", "")
+        plugboard = plugboard.upper()
+        if plugboard == "":
+            self.plugboard = []
+        else:
+            self.plugboard = plugboard.split(",")
         
         # ring settings
         self.ring_settings[0] = self.alphabet_index(right_ring_setting)

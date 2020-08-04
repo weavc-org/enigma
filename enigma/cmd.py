@@ -1,6 +1,6 @@
-from machine.rotors import rotors
-from machine.enigma import enigma
-from machine.settings import settings
+from m3.rotors import rotors
+from m3.enigma import enigma
+from m3.settings import settings
 
 if __name__ == "__main__":
     s = settings()
