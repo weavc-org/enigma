@@ -1,6 +1,7 @@
 from m3.data import rotors, reflectors
 from common.character_arrays import index
 
+
 class settings:
 
     def __init__(self):
@@ -11,17 +12,18 @@ class settings:
         self.right_rotor = rotors.III
         self.reflector = reflectors.B
         self.plugboard = []
-        self.ring_settings = [0,0,0]
-        self.rotor_settings = [0,0,0]
+        self.ring_settings = [0, 0, 0]
+        self.rotor_settings = [0, 0, 0]
 
     def __repr__(self):
         return "{ left_rotor: %s, middle_rotor: %s, right_rotor: %s, reflector: %s, plugboard: %s, ring_settings: %s, rotor_settings: %s }" % \
-            (self.left_rotor.name, self.middle_rotor.name, self.right_rotor.name, self.reflector.name, self.plugboard, self.ring_settings, self.rotor_settings)
+            (self.left_rotor.name, self.middle_rotor.name, self.right_rotor.name,
+             self.reflector.name, self.plugboard, self.ring_settings, self.rotor_settings)
 
     def to_json(self):
-        return { 'left_rotor': self.left_rotor.name, 'middle_rotor': self.middle_rotor.name, 'right_rotor': self.right_rotor.name,
-            'reflector': self.reflector.name, 'plugboard': self.plugboard, 'ring_settings': self.ring_settings, 'rotor_settings': self.rotor_settings }
-    
+        return {'left_rotor': self.left_rotor.name, 'middle_rotor': self.middle_rotor.name, 'right_rotor': self.right_rotor.name,
+                'reflector': self.reflector.name, 'plugboard': self.plugboard, 'ring_settings': self.ring_settings, 'rotor_settings': self.rotor_settings}
+
     def is_valid(self):
         errs = []
         if self.left_rotor is None:
@@ -68,7 +70,7 @@ class settings:
         for key, value in kwargs.items():
             if value is None:
                 continue
-            
+
             if key == 'left_rotor':
                 self.left_rotor = rotors().find(value)
             if key == 'middle_rotor':
@@ -98,18 +100,17 @@ class settings:
                 self.rotor_settings[0] = index(value)
 
         return self.is_valid()
-            
 
-    def set_all_values(self, left_rotor = 'I', middle_rotor = 'II', right_rotor = 'III',
-        reflector = 'B', plugboard = '', left_ring_setting = 'A', middle_ring_setting = 'A', 
-        right_ring_setting = 'A', left_rotor_setting = 'A', middle_rotor_setting = 'A', 
-        right_rotor_setting = 'A'):
+    def set_all_values(self, left_rotor='I', middle_rotor='II', right_rotor='III',
+                       reflector='B', plugboard='', left_ring_setting='A', middle_ring_setting='A',
+                       right_ring_setting='A', left_rotor_setting='A', middle_rotor_setting='A',
+                       right_rotor_setting='A'):
 
         # takes string inputs and sets & checks values
 
         # set rotors and reflectors
         if left_rotor is not None:
-            self.left_rotor = rotors().find(left_rotor) 
+            self.left_rotor = rotors().find(left_rotor)
         if middle_rotor is not None:
             self.middle_rotor = rotors().find(middle_rotor)
         if right_rotor is not None:
@@ -117,7 +118,7 @@ class settings:
         if reflector is not None:
             self.reflector = reflectors().find(reflector)
 
-        #set plugboard
+        # set plugboard
         if plugboard is not None:
             plugboard = plugboard.replace(" ", "")
             plugboard = plugboard.upper()
@@ -125,7 +126,7 @@ class settings:
                 self.plugboard = []
             else:
                 self.plugboard = plugboard.split(",")
-            
+
         # ring settings
         if right_ring_setting is not None:
             self.ring_settings[0] = index(right_ring_setting)
@@ -143,5 +144,3 @@ class settings:
             self.rotor_settings[2] = index(left_rotor_setting)
 
         return self.is_valid()
-
-

@@ -2,10 +2,11 @@ from m3.settings import settings
 from common import character_arrays
 import copy
 
+
 class enigma:
 
-    def __init__(self, settings = settings()):
-        
+    def __init__(self, settings=settings()):
+
         self.settings = settings
 
         # make copies of settings variables
@@ -15,11 +16,11 @@ class enigma:
 
         # setup class variables
         self.cipher = []
-        self.static_rotor=0
-        self.tmp_store=0
-        self.offset=0
-        self.tmp_store_last=0
-        self.fake_rotors=[0,0,0,0]
+        self.static_rotor = 0
+        self.tmp_store = 0
+        self.offset = 0
+        self.tmp_store_last = 0
+        self.fake_rotors = [0, 0, 0, 0]
 
     def encrypt(self, plaintext):
 
@@ -27,16 +28,17 @@ class enigma:
         t, errs = self.settings.is_valid()
         if t == False:
             return None, 'settings are not valid'
-        
+
         self.plaintext = list(plaintext.upper())
 
         # Setup the ring settings with the fake rotors
         # Using fake rotors for this not to upset the turnover point of actual rotor values
         for i in range(0, len(self.fake_rotor_settings)):
-            self.fake_rotors[i]=(self.fake_rotor_settings[i]-self.fake_ring_settings[i])%26
-       
+            self.fake_rotors[i] = (
+                self.fake_rotor_settings[i]-self.fake_ring_settings[i]) % 26
+
         for i in range(0, len(self.plaintext)):
-            
+
             # character pressed
             c = self.plaintext[i]
 
@@ -72,73 +74,75 @@ class enigma:
 
             # back into the static rotor
             self.tmp_store = self.rotor(3, True)
-        
+
             # back into the plugboard
             c = self.plugboard_pass(character_arrays.alphabet[self.tmp_store])
 
             # displayed on output light
             self.cipher.append(c)
-            
+
         return ''.join(self.cipher), None
-    
+
     def update_rotors(self):
 
-        #Add one to right rotor on keypress
-        self.fake_rotor_settings[0]+=1
-        self.fake_rotors[0]+=1
-        
-        #Check if rotors have reached turnover point
-        #If they have, add 1 position to them
+        # Add one to right rotor on keypress
+        self.fake_rotor_settings[0] += 1
+        self.fake_rotors[0] += 1
+
+        # Check if rotors have reached turnover point
+        # If they have, add 1 position to them
         for i in range(0, len(self.settings.right_rotor.turnover)):
             if self.fake_rotor_settings[0] == self.settings.right_rotor.turnover[i]:
-                self.fake_rotor_settings[1]+=1
-                self.fake_rotors[1]+=1
-                
+                self.fake_rotor_settings[1] += 1
+                self.fake_rotors[1] += 1
+
         for i in range(0, len(self.settings.middle_rotor.turnover)):
             if self.fake_rotor_settings[1] == self.settings.middle_rotor.turnover[i]:
-                self.fake_rotor_settings[2]+=1
-                self.fake_rotors[2]+=1
+                self.fake_rotor_settings[2] += 1
+                self.fake_rotors[2] += 1
 
-        #If any rotors are over 25 (Z) then divide by 26 and set to remainder. Simulating a looping alphabet.
+        # If any rotors are over 25 (Z) then divide by 26 and set to remainder. Simulating a looping alphabet.
         for i in range(0, len(self.fake_ring_settings)):
-            self.fake_rotor_settings[i]=self.fake_rotor_settings[i]%26
-            self.fake_rotors[i]=self.fake_rotors[i]%26
-        
+            self.fake_rotor_settings[i] = self.fake_rotor_settings[i] % 26
+            self.fake_rotors[i] = self.fake_rotors[i] % 26
+
     def rotor(self, rotorNumber, returning):
 
-        #Put correct rotor data into a tmp_rotor variable
+        # Put correct rotor data into a tmp_rotor variable
         if rotorNumber == 0:
-            self.tmp_rotor=self.settings.right_rotor.value
+            self.tmp_rotor = self.settings.right_rotor.value
         elif rotorNumber == 1:
-            self.tmp_rotor=self.settings.middle_rotor.value
+            self.tmp_rotor = self.settings.middle_rotor.value
         elif rotorNumber == 2:
-            self.tmp_rotor=self.settings.left_rotor.value
+            self.tmp_rotor = self.settings.left_rotor.value
         elif rotorNumber == 3:
-            self.tmp_rotor=character_arrays.alphabet
+            self.tmp_rotor = character_arrays.alphabet
 
-        #Work out the offset between rotors, add it to tmp_store
+        # Work out the offset between rotors, add it to tmp_store
         self.offset = self.fake_rotors[rotorNumber]-self.tmp_store_last
-        self.tmp_store=(self.tmp_store+self.offset)%26
-        self.tmp_store_last=self.fake_rotors[rotorNumber]
-        
+        self.tmp_store = (self.tmp_store+self.offset) % 26
+        self.tmp_store_last = self.fake_rotors[rotorNumber]
+
         if returning == True:
-            #Return journey, in on the jumbled side, out on alphabet.
+            # Return journey, in on the jumbled side, out on alphabet.
             return character_arrays.index(character_arrays.alphabet[self.tmp_store], self.tmp_rotor)
         else:
-            #Initial journey, in on alphabet, out on the jumbled side.
+            # Initial journey, in on alphabet, out on the jumbled side.
             return character_arrays.index(self.tmp_rotor[self.tmp_store])
 
     def reflect(self):
-        #Left rotor output -> Reflector
-        self.offset=0-self.tmp_store_last
-        self.tmp_store_last=0
-        self.tmp_store=(self.tmp_store+self.offset)%26
+        # Left rotor output -> Reflector
+        self.offset = 0-self.tmp_store_last
+        self.tmp_store_last = 0
+        self.tmp_store = (self.tmp_store+self.offset) % 26
         return character_arrays.index(self.settings.reflector.value[self.tmp_store])
 
     def plugboard_pass(self, c):
-        #Checks for character in plugboard settings
+        # Checks for character in plugboard settings
         for pair in self.settings.plugboard:
             if c in pair:
-                if c == pair[0]:c=pair[1]
-                elif c == pair[1]:c=pair[0]
+                if c == pair[0]:
+                    c = pair[1]
+                elif c == pair[1]:
+                    c = pair[0]
         return c
