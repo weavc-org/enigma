@@ -66,6 +66,9 @@ class settings:
     def set_values(self, **kwargs):
         vals = vars(self)
         for key, value in kwargs.items():
+            if value is None:
+                continue
+            
             if key == 'left_rotor':
                 self.left_rotor = rotors().find(value)
             if key == 'middle_rotor':

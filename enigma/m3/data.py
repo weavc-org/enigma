@@ -8,6 +8,11 @@ class reflectors:
     C = reflector('C', list('FVPJIAOYEDRZXWGCTKUQSBNMHL'))
     all = [B, C]
 
+    def __init__(self):
+        self.names = []
+        for l in self.all:
+            self.names.append(l.name)
+
     def find(self, name: str):
         for l in self.all:
             if l.name == name.upper():
@@ -31,6 +36,11 @@ class rotors:
     VII = rotor('VII', [26,13], list('NZJHGRCXMYSWBOUFAIVLPEKQDT'))
     VIII = rotor('VIII', [26,13], list('FKQHTLXOCBJSPDZRAMEWNIUYGV'))
     all = [I, II, III, IV, V, VI, VII, VIII]
+
+    def __init__(self):
+        self.names = []
+        for l in self.all:
+            self.names.append(l.name)
 
     def find(self, name: str):
         for l in self.all:
