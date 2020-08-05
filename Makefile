@@ -1,10 +1,8 @@
 .PHONY: enigma
 
-app:
-	python3 enigma
-
-cmd: 
-	python3 enigma/cmd.py
+web:
+	python3 enigma --web
 
 setup:
-	pip3 install -r requirements.txt
+	pipenv shell
+	pipenv install

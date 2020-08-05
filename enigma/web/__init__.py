@@ -2,7 +2,7 @@
 #!/usr/bin/env python3 
 
 import flask
-from app.m3 import m3_bp
+from web.m3 import m3_bp
 
 def new_app():
 
@@ -11,3 +11,6 @@ def new_app():
     app.config['SECRET_KEY'] = 'any secret string'
     return app
 
+def start():
+    server = new_app()
+    server.run(host='0.0.0.0', port=5501)

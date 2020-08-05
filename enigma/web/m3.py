@@ -1,5 +1,5 @@
 import flask
-from app.forms import m3_form
+from web.forms import m3_form
 from m3 import settings, enigma
 
 m3_bp = flask.Blueprint('m3', __name__)

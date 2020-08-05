@@ -5,8 +5,8 @@ from common import character_arrays
 
 import argparse
 
-
-if __name__ == "__main__":
+def cmd():
+    
     parser = argparse.ArgumentParser(description='Python M3 Enigma emulator')
 
     refs = reflectors().names

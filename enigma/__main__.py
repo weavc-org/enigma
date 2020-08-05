@@ -1,7 +1,10 @@
-#!/usr/bin/env python3
+from cmd import cmd
+from web import start
 
-from app import new_app
+import sys
 
 if __name__ == "__main__":
-    server = new_app()
-    server.run(host='0.0.0.0', port=5501)
+    if '--web' in sys.argv:
+        start()
+    else:
+        cmd()
