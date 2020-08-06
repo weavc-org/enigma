@@ -2,15 +2,24 @@ from m3.data import rotors, reflectors
 from m3.enigma import enigma
 from m3.settings import settings
 from common import character_arrays
-
+import web
 import argparse
+
+refs = reflectors().names
+rots = rotors().names
 
 
 def cmd():
-    parser = argparse.ArgumentParser(description='Python M3 Enigma emulator')
 
-    refs = reflectors().names
-    rots = rotors().names
+    main_parser = argparse.ArgumentParser(
+        description='Python M3 Enigma emulator')
+    sub = main_parser.add_subparsers(dest='sub')
+
+    web_parser = sub.add_parser('serve')
+    web_parser.add_argument('--prod', action='store_true',
+                            dest='prod', default=False)
+
+    parser = sub.add_parser('cmd')
 
     # input message
     parser.add_argument('input', metavar='input', type=str, nargs='+',
@@ -63,22 +72,25 @@ def cmd():
                         help='Plugboard character sets, Characters can only be supplied once. Should be sets of 2 characters, seperated with spaces: XY VB AS ...',
                         dest='plugboard',  nargs='+')
 
-    args = parser.parse_args()
+    args = main_parser.parse_args()
 
-    # join plugboard args into string separated by commas
-    if args.plugboard is not None:
-        args.plugboard = ','.join(args.plugboard)
-
-    s = settings()
-    t, errs = s.set_values(**args.__dict__)
-    if t == False:
-        print('Encountered the following errors:')
-        for err in errs:
-            print('- ' + err)
-        print('')
-
-    v, e = enigma(s).encrypt(' '.join(args.__dict__['input']))
-    if e is not None:
-        print(e)
+    if args.sub == 'serve':
+        web.start(args.prod)
     else:
-        print('output: ' + v)
+        # join plugboard args into string separated by commas
+        if args.plugboard is not None:
+            args.plugboard = ','.join(args.plugboard)
+
+        s = settings()
+        t, errs = s.set_values(**args.__dict__)
+        if t == False:
+            print('Encountered the following errors:')
+            for err in errs:
+                print('- ' + err)
+            print('')
+
+        v, e = enigma(s).encrypt(' '.join(args.__dict__['input']))
+        if e is not None:
+            print(e)
+        else:
+            print('output: ' + v)

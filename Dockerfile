@@ -10,4 +10,4 @@ RUN pipenv install --ignore-pipfile
 
 COPY . .
 
-CMD [ "pipenv", "run", "python", "enigma", "--web" ]
+CMD [ "pipenv", "run", "python", "enigma", "serve", "--prod" ]

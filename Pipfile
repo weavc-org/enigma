@@ -9,6 +9,7 @@ verify_ssl = true
 Flask = "*"
 Flask-WTF = "*"
 WTForms = "*"
+waitress = "*"
 
 [requires]
 python_version = "3.8"
