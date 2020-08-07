@@ -20,10 +20,11 @@ pipenv install --dev
 pipenv shell
 ```
 
-Flask app (add `--prod` to use `waitress` wsgi server):
+Flask app:
 ```
 python . serve
 ```
+note: add `--prod` to use a wsgi server
 
 CLI:
 ```
