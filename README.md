@@ -14,7 +14,7 @@ Install `pipenv` if you havn't already:
 python3.8 -m pip install pipenv
 ```
 
-Install dependancies & setup `virtualenv`:
+Install dependancies & setup/enter a `virtualenv`:
 ```
 pipenv install --dev
 pipenv shell
