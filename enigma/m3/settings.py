@@ -1,6 +1,6 @@
-from m3.data import rotors, reflectors
-from common.character_arrays import index
 
+from .data import rotors, reflectors
+from ..common.character_arrays import index
 
 class settings:
 

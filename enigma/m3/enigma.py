@@ -1,7 +1,7 @@
-from m3.settings import settings
-from common import character_arrays
 import copy
 
+from .settings import settings
+from ..common import character_arrays
 
 class enigma:
 

@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from m3.data import rotors, reflectors
-from m3.settings import settings
 import wtforms
+
+from ..m3.data import rotors, reflectors
+from ..m3.settings import settings
 
 
 class m3_form(FlaskForm):

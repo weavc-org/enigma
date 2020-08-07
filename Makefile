@@ -1,7 +1,7 @@
 .PHONY: enigma
 
 serve:
-	pipenv run python enigma serve
+	pipenv run python . serve
 
 docker:
 	docker build -t enigma:latest .

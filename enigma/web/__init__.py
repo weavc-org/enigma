@@ -1,10 +1,7 @@
-
-#!/usr/bin/env python3
-
 import flask
 import waitress
-from web.m3 import m3_bp
 
+from .m3 import m3_bp
 
 def new_app():
 
