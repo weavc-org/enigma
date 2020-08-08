@@ -8,7 +8,7 @@ m3_bp = flask.Blueprint('m3', __name__)
 
 @m3_bp.route('/', methods=['GET'])
 def redirect():
-    return flask.redirect(flask.url_for('m3.view_m3'))
+     return flask.render_template('index.html')
 
 
 @m3_bp.route('/m3', methods=['POST', 'GET'])

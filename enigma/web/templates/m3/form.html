@@ -1,9 +1,8 @@
 {% if form %}
-<form method="POST" class="text-light">
-    <div class="row mb-3">
-
-        <div class="col">
-            <div class="card main-bg-dark">
+<form method="POST" class="text-light container-fluid content-rows">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+            <div class="card main-bg-dark h-100">
                 <div class="card-header main-bg-darker">
                     <label class="w-100 font-weight-bold">Slow Rotor (Left)</label>
                 </div>
@@ -18,8 +17,8 @@
             </div>
         </div>
 
-        <div class="col">
-            <div class="card main-bg-dark">
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+            <div class="card main-bg-dark h-100">
                 <div class="card-header main-bg-darker">
                     <label class="w-100 font-weight-bold">Middle Rotor (Centre)</label>
                 </div>
@@ -34,8 +33,8 @@
             </div>
         </div>
 
-        <div class="col">
-            <div class="card main-bg-dark">
+        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+            <div class="card main-bg-dark h-100">
                 <div class="card-header main-bg-darker">
                     <label class="w-100 font-weight-bold">Fast Rotor (Right)</label>
                 </div>
@@ -82,14 +81,14 @@
                     <label class="w-100 font-weight-bold">Input / Output</label>
                 </div>
                 <div class="card-body row">
-                    <div class="col">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
                         {{ form.data(id='encrypt', placeholder='input', class_='form-control', tabindex='1') | safe }}
                     </div>
-                    <div class="col">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
                         <textarea class="form-control" id="output" name="output" placeholder="output" disabled tabindex="1">{% if value %}{{ value }}{% endif %}</textarea>
                     </div>
 
-                    <div class="form-group col-12 mt-3">
+                    <div class="form-group col-12">
                         {{ form.submit(class="btn btn-info btn-block", formaction='') }}
                     </div>
                 </div>
