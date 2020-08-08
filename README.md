@@ -1,6 +1,7 @@
 ## M3 Enigma Emulator
 
 ![Python tests](https://github.com/weavc/enigma/workflows/Python%20tests/badge.svg)
+[![Docker](https://img.shields.io/badge/docker-releases-blue?logo=docker)](https://github.com/weavc/enigma/packages?ecosystem=docker)
 
 Python based M3 Enigma emulator with a flask based web interface (and cli). I originally created the CLI based emulator for a project in university, has since been updated, tidied up, a flask web interface added and tests have been done.
 
