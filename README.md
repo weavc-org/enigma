@@ -1,5 +1,7 @@
 ## M3 Enigma Emulator
 
+![Python tests](https://github.com/weavc/enigma/workflows/Python%20tests/badge.svg)
+
 Python based M3 Enigma emulator with a flask based web interface (and cli). I originally created the CLI based emulator for a project in university, has since been updated, tidied up, a flask web interface added and tests have been done.
 
 ### Usage
